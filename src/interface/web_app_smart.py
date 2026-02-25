@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Qianji Web Application - Final Version with Thinking Mode + Smart Routing
+Qianji Web Application - Smart Qwen Max with Native Search Integration
+Uses Qwen Max's built-in search capability for autonomous verification
 """
 import os
 import sys
@@ -12,16 +13,16 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from flask import Flask, request, jsonify, render_template, send_from_directory
-from src.core.independent_qji_final import IndependentQjiFinalEngine
+from src.core.independent_qji_smart import IndependentQjiEngine
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.join(project_root, 'uploads')
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-# Initialize AI engine
-print("正在加载千机AI最终版模型（Thinking模式+智能路由）...")
-ai_engine = IndependentQjiFinalEngine()
-print("千机AI最终版模型加载完成！")
+# Initialize AI engine with native search capability
+print("正在加载千机AI模型（智能联网验证版）...")
+ai_engine = IndependentQjiEngine()
+print("千机AI模型（智能联网验证版）加载完成！")
 
 @app.route('/')
 def index():
@@ -41,7 +42,7 @@ def bazi_analysis():
         if not all([birth_date, birth_time, gender, location]):
             return jsonify({'response': '请填写完整的八字信息'}), 400
             
-        # Get response from Independent Qji Engine
+        # Get response from Independent Qji Engine with native search
         response = ai_engine.analyze_bazi(birth_date, birth_time, gender, location)
         
         return jsonify({'response': response})
@@ -51,7 +52,7 @@ def bazi_analysis():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    """Handle chat messages with AI"""
+    """Handle chat messages with AI - now with autonomous verification"""
     try:
         data = request.get_json()
         message = data.get('message', '')
@@ -62,7 +63,7 @@ def chat():
         # Get conversation history (if any)
         history = data.get('history', [])
             
-        # Get response from Independent Qji Engine  
+        # Get response from Independent Qji Engine with native search
         response = ai_engine.generate_response(message, history)
         
         return jsonify({'response': response})
@@ -76,6 +77,6 @@ def static_files(filename):
     return send_from_directory(os.path.join(project_root, 'src', 'interface', 'static'), filename)
 
 if __name__ == '__main__':
-    print("启动千机Web服务（最终版）...")
+    print("启动千机Web服务（智能联网验证版）...")
     print("访问地址: http://localhost:8082")
     app.run(host='127.0.0.1', port=8082, debug=False)

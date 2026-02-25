@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Qianji Web Application - Final Version with Thinking Mode + Smart Routing
+Qianji Web Application - Fixed Time Selection with Early/Late Zi Hour
 """
 import os
 import sys
@@ -12,21 +12,21 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from flask import Flask, request, jsonify, render_template, send_from_directory
-from src.core.independent_qji_final import IndependentQjiFinalEngine
+from src.core.independent_qji_bazi_fixed import IndependentQjiBaziFixedEngine
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.join(project_root, 'uploads')
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Initialize AI engine
-print("正在加载千机AI最终版模型（Thinking模式+智能路由）...")
-ai_engine = IndependentQjiFinalEngine()
-print("千机AI最终版模型加载完成！")
+print("正在加载千机AI修复版模型（权威八字验证+时辰修正）...")
+ai_engine = IndependentQjiBaziFixedEngine()
+print("千机AI修复版模型加载完成！")
 
 @app.route('/')
 def index():
     """Main page with dual interface (form + chat)"""
-    return render_template('index.html')
+    return render_template('index_fixed.html')
 
 @app.route('/bazi', methods=['POST'])
 def bazi_analysis():
@@ -76,6 +76,6 @@ def static_files(filename):
     return send_from_directory(os.path.join(project_root, 'src', 'interface', 'static'), filename)
 
 if __name__ == '__main__':
-    print("启动千机Web服务（最终版）...")
+    print("启动千机Web服务（时辰修正版）...")
     print("访问地址: http://localhost:8082")
     app.run(host='127.0.0.1', port=8082, debug=False)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Qianji Web Application - Final Version with Thinking Mode + Smart Routing
+Qianji Web Application - Enhanced with Web Search, Skills, and Parallel Task Processing
 """
 import os
 import sys
@@ -12,16 +12,16 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from flask import Flask, request, jsonify, render_template, send_from_directory
-from src.core.independent_qji_final import IndependentQjiFinalEngine
+from src.core.enhanced_qji_engine import EnhancedQjiEngine
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.join(project_root, 'uploads')
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-# Initialize AI engine
-print("正在加载千机AI最终版模型（Thinking模式+智能路由）...")
-ai_engine = IndependentQjiFinalEngine()
-print("千机AI最终版模型加载完成！")
+# Initialize Enhanced AI engine with web search, skills, and parallel processing
+print("正在加载千机AI增强版模型...")
+ai_engine = EnhancedQjiEngine()
+print("千机AI增强版模型加载完成！")
 
 @app.route('/')
 def index():
@@ -41,8 +41,11 @@ def bazi_analysis():
         if not all([birth_date, birth_time, gender, location]):
             return jsonify({'response': '请填写完整的八字信息'}), 400
             
-        # Get response from Independent Qji Engine
-        response = ai_engine.analyze_bazi(birth_date, birth_time, gender, location)
+        # Create bazi analysis prompt
+        prompt = f"请为我详细分析这个八字：出生日期 {birth_date}，出生时间 {birth_time}，性别 {gender}，出生地点 {location}。需要包含四柱排盘、格局分析、用神选择、大运流年和具体的人生建议。"
+        
+        # Get response from Enhanced Qji Engine
+        response = ai_engine.generate_response(prompt)
         
         return jsonify({'response': response})
     except Exception as e:
@@ -59,11 +62,8 @@ def chat():
         if not message:
             return jsonify({'response': '消息不能为空'}), 400
             
-        # Get conversation history (if any)
-        history = data.get('history', [])
-            
-        # Get response from Independent Qji Engine  
-        response = ai_engine.generate_response(message, history)
+        # Get response from Enhanced Qji Engine  
+        response = ai_engine.generate_response(message)
         
         return jsonify({'response': response})
     except Exception as e:
@@ -76,6 +76,6 @@ def static_files(filename):
     return send_from_directory(os.path.join(project_root, 'src', 'interface', 'static'), filename)
 
 if __name__ == '__main__':
-    print("启动千机Web服务（最终版）...")
+    print("启动千机Web服务增强版...")
     print("访问地址: http://localhost:8082")
     app.run(host='127.0.0.1', port=8082, debug=False)

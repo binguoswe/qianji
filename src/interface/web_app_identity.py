@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Qianji Web Application - Final Version with Thinking Mode + Smart Routing
+Qianji Web Application - Identity Fixed Version
+Forces Qji identity instead of Qwen identity
 """
 import os
 import sys
@@ -12,16 +13,16 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from flask import Flask, request, jsonify, render_template, send_from_directory
-from src.core.independent_qji_final import IndependentQjiFinalEngine
+from src.core.independent_qji_identity import IndependentQjiIdentityEngine
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.join(project_root, 'uploads')
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Initialize AI engine
-print("正在加载千机AI最终版模型（Thinking模式+智能路由）...")
-ai_engine = IndependentQjiFinalEngine()
-print("千机AI最终版模型加载完成！")
+print("正在加载千机AI身份修复版模型...")
+ai_engine = IndependentQjiIdentityEngine()
+print("千机AI身份修复版模型加载完成！")
 
 @app.route('/')
 def index():
@@ -76,6 +77,6 @@ def static_files(filename):
     return send_from_directory(os.path.join(project_root, 'src', 'interface', 'static'), filename)
 
 if __name__ == '__main__':
-    print("启动千机Web服务（最终版）...")
+    print("启动千机Web服务（身份修复版）...")
     print("访问地址: http://localhost:8082")
     app.run(host='127.0.0.1', port=8082, debug=False)
