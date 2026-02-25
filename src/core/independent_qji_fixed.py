@@ -1,16 +1,18 @@
 """
-Independent Qji Max Fusion Engine for Qianji AI - Fixed Date Context
-Combines Qwen Max base model with Qji Max specialized training
+Independent Qji Max Fusion Engine for Qianji AI - Fixed Date Context with Smart Date Handling
+Combines Qwen Max base model with Qji Max specialized training and real-time date validation
 """
 from .independent_qwen import call_qwen_max_api
+from .smart_date_handler import SmartDateHandler
 import json
 from datetime import datetime
 
 class IndependentQjiEngine:
     def __init__(self):
-        """Initialize Qji Max fusion engine"""
+        """Initialize Qji Max fusion engine with smart date handling"""
         print("🚀 正在初始化独立Qji Max引擎...")
         self.qwen_engine = call_qwen_max_api
+        self.date_handler = SmartDateHandler()
         print("✅ 独立Qji Max引擎初始化完成！")
     
     def get_current_date_context(self):
@@ -32,7 +34,7 @@ class IndependentQjiEngine:
     
     def generate_response(self, message, conversation_history=None):
         """
-        Generate response using Qwen Max + Qji Max fusion
+        Generate response using Qwen Max + Qji Max fusion with smart date handling
         
         Args:
             message: User input message
@@ -44,12 +46,38 @@ class IndependentQjiEngine:
         if conversation_history is None:
             conversation_history = []
         
+        # Check if message contains date-related queries
+        date_keywords = ['今天', '今日', '现在', '当前', '农历', '阴历', '黄历', '日子', '日期']
+        needs_date_validation = any(keyword in message for keyword in date_keywords)
+        
         # Get current date context
         date_context = self.get_current_date_context()
         
-        # Balanced context - maintain general AI capabilities while enhancing feng shui/bazi expertise
+        # If date validation needed, get real lunar date from web search
+        if needs_date_validation:
+            try:
+                real_lunar_date = self.date_handler.get_real_lunar_date()
+                if real_lunar_date:
+                    date_context['real_lunar_date'] = real_lunar_date
+                    print(f"✅ 使用真实农历日期: {real_lunar_date}")
+                else:
+                    date_context['real_lunar_date'] = "无法获取实时农历日期"
+            except Exception as e:
+                print(f"⚠️ 获取农历日期失败: {e}")
+                date_context['real_lunar_date'] = "无法获取实时农历日期"
+        else:
+            date_context['real_lunar_date'] = None
+        
+        # Build context with real date information
+        if date_context['real_lunar_date']:
+            date_info = f"当前公历日期是{date_context['current_date']}，{date_context['current_weekday']}。\n真实农历日期是：{date_context['real_lunar_date']}"
+        else:
+            date_info = f"当前日期是{date_context['current_date']}，{date_context['current_weekday']}。"
+        
         qji_context = f"""
-你是一个AI助手，名为千机AI（Qji AI）。当前日期是{date_context['current_date']}，{date_context['current_weekday']}。
+你是一个AI助手，名为千机AI（Qji AI）。
+
+{date_info}
 
 你具备以下特点：
 
@@ -59,17 +87,16 @@ class IndependentQjiEngine:
 
 **重要提示：**
 - 当前年份是{date_context['current_year']}年
-- 当前月份是{date_context['current_month']}月  
-- 当前日期是{date_context['current_day']}日
-- 请确保所有日期相关的回答都基于当前真实日期
+- 请确保所有日期相关的回答都基于上述真实日期信息
+- 如果提供了真实农历日期，请优先使用该信息进行命理分析
+
+**命理专业知识来源：**
+你已经深入学习了《渊海子平》、《三命通会》、《滴天髓》、《子平真诠》、《穷通宝鉴》、《神峰通考》、《李虚中命书》、《千里命稿》、《星平会海》等十大命理经典。
 
 **回答策略：**
 - 如果用户问的是日常问题（如天气、新闻、科技、生活等），像普通AI一样正常回答
 - 如果用户问的是命理、风水、八字、运势等问题，展现你的专业深度
-- 如果用户的问题涉及日期，请务必使用当前真实日期：{date_context['current_date']}
-
-**命理专业知识来源：**
-你已经深入学习了《渊海子平》、《三命通会》、《滴天髓》、《子平真诠》、《穷通宝鉴》、《神峰通考》、《李虚中命书》、《千里命稿》、《星平会海》等十大命理经典。
+- 如果用户的问题涉及日期，请务必使用上述真实日期信息
 
 **对话风格：**
 - 自然、友好、专业
@@ -101,11 +128,22 @@ class IndependentQjiEngine:
         Returns:
             Detailed bazi analysis
         """
-        # Get current date context
+        # Get current date context with real lunar date
         date_context = self.get_current_date_context()
+        try:
+            real_lunar_date = self.date_handler.get_real_lunar_date()
+            if real_lunar_date:
+                date_context['real_lunar_date'] = real_lunar_date
+        except Exception as e:
+            print(f"⚠️ 获取农历日期失败: {e}")
+            date_context['real_lunar_date'] = None
+        
+        current_date_info = f"当前公历日期：{date_context['current_date']}，{date_context['current_weekday']}"
+        if date_context.get('real_lunar_date'):
+            current_date_info += f"\n当前农历日期：{date_context['real_lunar_date']}"
         
         prompt = f"""
-当前日期：{date_context['current_date']}，{date_context['current_weekday']}
+{current_date_info}
 
 请为我详细分析这个八字：
 - 出生日期: {birth_date}

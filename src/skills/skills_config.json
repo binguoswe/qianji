@@ -1,0 +1,9 @@
+{
+  "enabled_skills": ["weather", "news", "bazi", "stock"],
+  "skill_paths": {
+    "weather": "src/skills/weather_skill.py",
+    "news": "src/skills/news_skill.py", 
+    "bazi": "src/skills/bazi_skill.py",
+    "stock": "src/skills/stock_skill.py"
+  }
+}

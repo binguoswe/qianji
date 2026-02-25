@@ -1,5 +1,5 @@
 """
-Real Qwen Max API Integration for Qianji AI
+Real Qwen Max API Integration for Qianji AI with Web Search Enabled
 """
 import os
 import requests
@@ -18,9 +18,9 @@ def get_qwen_api_key():
         print(f"Error loading API key: {e}")
         return None
 
-def call_qwen_max_api(prompt, conversation_history=None):
+def call_qwen_max_api(prompt, conversation_history=None, enable_search=True):
     """
-    Call real Qwen Max API
+    Call real Qwen Max API with optional web search enabled
     """
     api_key = get_qwen_api_key()
     if not api_key:
@@ -52,7 +52,13 @@ def call_qwen_max_api(prompt, conversation_history=None):
             "temperature": 0.7
         }
         
-        response = requests.post(url, headers=headers, json=data, timeout=30)
+        # Enable web search for queries that need real-time information
+        if enable_search:
+            data["enable_search"] = True
+            # Optional: set search strategy for more comprehensive results
+            data["search_strategy"] = "max"  # Use comprehensive search strategy
+        
+        response = requests.post(url, headers=headers, json=data, timeout=60)  # Increased timeout for search
         if response.status_code == 200:
             result = response.json()
             return result['choices'][0]['message']['content']
@@ -63,6 +69,23 @@ def call_qwen_max_api(prompt, conversation_history=None):
     except Exception as e:
         print(f"Qwen API call failed: {e}")
         return generate_smart_response(prompt)
+
+def should_enable_search(prompt):
+    """
+    Determine if web search should be enabled based on the prompt
+    """
+    search_keywords = [
+        '今天', '最新', '新闻', '天气', '黄历', '实时', '现在', '当前',
+        'today', 'latest', 'news', 'weather', 'current', 'now'
+    ]
+    return any(keyword in prompt.lower() for keyword in search_keywords)
+
+def call_qwen_max_with_intelligent_search(prompt, conversation_history=None):
+    """
+    Call Qwen Max with intelligent search decision
+    """
+    enable_search = should_enable_search(prompt)
+    return call_qwen_max_api(prompt, conversation_history, enable_search)
 
 def generate_smart_response(prompt):
     """
@@ -109,4 +132,4 @@ def generate_smart_response(prompt):
 
 # For backward compatibility
 def call_qwen_max(prompt, conversation_history=None):
-    return call_qwen_max_api(prompt, conversation_history)
+    return call_qwen_max_with_intelligent_search(prompt, conversation_history)
