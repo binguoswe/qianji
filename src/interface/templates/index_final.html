@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>千机AI - 专业命理咨询</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航 -->
+        <header class="header">
+            <h1>千机AI</h1>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <div class="main-content">
+            <!-- 左侧：快速八字表单 -->
+            <div class="form-section">
+                <div class="card">
+                    <h2>快速八字分析</h2>
+                    <form id="baziForm">
+                        <div class="form-group">
+                            <label for="birthDate">出生日期</label>
+                            <input type="date" id="birthDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthTime">出生时间</label>
+                            <select id="birthTime" required>
+                                <option value="">请选择时辰</option>
+                                <option value="23:00">子时 (23:00-01:00)</option>
+                                <option value="01:00">丑时 (01:00-03:00)</option>
+                                <option value="03:00">寅时 (03:00-05:00)</option>
+                                <option value="05:00">卯时 (05:00-07:00)</option>
+                                <option value="07:00">辰时 (07:00-09:00)</option>
+                                <option value="09:00">巳时 (09:00-11:00)</option>
+                                <option value="11:00">午时 (11:00-13:00)</option>
+                                <option value="13:00">未时 (13:00-15:00)</option>
+                                <option value="15:00">申时 (15:00-17:00)</option>
+                                <option value="17:00">酉时 (17:00-19:00)</option>
+                                <option value="19:00">戌时 (19:00-21:00)</option>
+                                <option value="21:00">亥时 (21:00-23:00)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">性别</label>
+                            <select id="gender" required>
+                                <option value="male">男</option>
+                                <option value="female">女</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">出生地点</label>
+                            <input type="text" id="location" placeholder="例如：北京、上海">
+                        </div>
+                        <button type="submit" class="btn-primary">快速分析</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 右侧：聊天界面 -->
+            <div class="chat-section">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h2>千机AI对话</h2>
+                        <p>与专业命理师AI深度交流</p>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                您好！我是千机AI，基于十大命理经典训练的专业命理咨询助手。您可以：
+                                <br>• 直接输入八字进行分析
+                                <br>• 上传命盘图片或手写八字
+                                <br>• 询问任何命理相关问题
+                                <br>• 进行深度命理咨询
+                                <br><br>请问有什么可以帮您的吗？
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="drop-zone" id="dropZone">
+                            <p>拖拽图片或文件到这里上传</p>
+                            <input type="file" id="fileInput" accept="image/*,.pdf" style="display: none;">
+                        </div>
+                        <div class="input-controls">
+                            <textarea id="userMessage" placeholder="输入您的问题..." rows="3"></textarea>
+                            <div class="button-group">
+                                <button id="mediaBtn" class="btn-secondary" title="上传图片/文件">
+                                    📎
+                                </button>
+                                <button id="sendBtn" class="btn-primary">发送</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部信息 -->
+        <footer class="footer">
+            <p>© 2026 千机项目 | 基于十大命理经典训练</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script_final.js') }}"></script>
+</body>
+</html>

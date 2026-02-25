@@ -1,0 +1,269 @@
+/* 千机AI界面样式 - 完全修复版 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.main-content {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    height: calc(100vh - 200px);
+}
+
+/* 左侧表单区域 */
+.form-section {
+    width: 350px;
+    flex-shrink: 0;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+/* 右侧聊天区域 */
+.chat-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chat-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chat-header {
+    padding: 25px;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+.chat-header h2 {
+    color: #667eea;
+    margin-bottom: 8px;
+    font-size: 1.5rem;
+}
+
+.chat-header p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* 聊天消息区域 - 完全修复滚动 */
+.chat-messages {
+    padding: 25px;
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: calc(100% - 180px);
+}
+
+.message {
+    max-width: 80%;
+    padding: 15px;
+    border-radius: 18px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.user-message {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background: #f8f9fa;
+    color: #333;
+    border-bottom-left-radius: 5px;
+}
+
+/* 输入区域 */
+.chat-input-area {
+    padding: 20px;
+    border-top: 1px solid #e1e5e9;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.drop-zone {
+    border: 2px dashed #e1e5e9;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.drop-zone:hover,
+.drop-zone.highlight {
+    border-color: #667eea;
+}
+
+.input-controls {
+    display: flex;
+    gap: 10px;
+}
+
+#userMessage {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    resize: none;
+    font-size: 14px;
+    min-height: 60px;
+    max-height: 120px;
+}
+
+#userMessage:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.button-group {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #e1e5e9;
+    border-color: #667eea;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+    opacity: 0.8;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .form-section {
+        width: 100%;
+        height: auto;
+    }
+    
+    .chat-section {
+        height: 600px;
+    }
+    
+    .message {
+        max-width: 90%;
+    }
+}

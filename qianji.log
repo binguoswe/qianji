@@ -1,0 +1,18 @@
+正在加载千机AI模型...
+🚀 正在初始化独立Qji Max引擎...
+✅ 独立Qji Max引擎初始化完成！
+千机AI模型加载完成！
+启动千机Web服务...
+访问地址: http://localhost:8081
+ * Serving Flask app 'web_app_independent'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8081
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [23/Feb/2026 01:04:37] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 01:04:59] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 01:07:36] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 01:07:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [23/Feb/2026 01:07:58] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 01:12:46] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [23/Feb/2026 01:13:46] "POST /chat HTTP/1.1" 200 -

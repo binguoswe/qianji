@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>千机AI - 命理学专家</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>千机AI - 命理学专家</h1>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <!-- 消息将在这里动态显示 -->
+            <div class="message assistant">
+                <div class="message-content">
+                    你好！我是千机AI，专业的命理学助手。你可以问我关于八字、命理、运势等问题，也可以上传命盘图片或手写八字让我分析。
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <div class="input-container">
+                <textarea id="userInput" placeholder="输入你的问题..." rows="1"></textarea>
+                <button id="sendButton" onclick="sendMessage()">发送</button>
+            </div>
+            <div class="upload-container">
+                <label for="fileUpload" class="upload-label">
+                    📎 上传图片/PDF
+                </label>
+                <input type="file" id="fileUpload" accept="image/*,.pdf" style="display: none;">
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='chat.js') }}"></script>
+</body>
+</html>
