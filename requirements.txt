@@ -10,4 +10,6 @@ torch>=2.0.0
 peft>=0.4.0
 bitsandbytes>=0.40.0
 sentence-transformers>=2.2.0
-google-generative-ai>=0.4.0
+google-generativeai>=0.4.0
+lunardate>=0.1.5
+cnlunar>=0.1.0
