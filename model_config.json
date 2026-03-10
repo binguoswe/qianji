@@ -1,0 +1,84 @@
+{
+  "env": {
+    "BAILIAN_CODING_PLAN_API_KEY": "YOUR_API_KEY"
+  },
+  "modelProviders": {
+    "openai": [
+      {
+        "id": "qwen3.5-plus",
+        "name": "qwen3.5-plus",
+        "description": "qwen3.5-plus model with thinking enabled from Coding Plan (Global/Intl)",
+        "baseUrl": "https://coding-intl.dashscope.aliyuncs.com/v1",
+        "envKey": "BAILIAN_CODING_PLAN_API_KEY",
+        "generationConfig": {
+          "extra_body": {
+            "enable_thinking": true
+          }
+        }
+      },
+      {
+        "id": "qwen3-coder-plus", 
+        "name": "qwen3-coder-plus",
+        "baseUrl": "https://coding-intl.dashscope.aliyuncs.com/v1",
+        "description": "qwen3-coder-plus model from Coding Plan (Global/Intl)",
+        "envKey": "BAILIAN_CODING_PLAN_API_KEY"
+      },
+      {
+        "id": "qwen3-max-2026-01-23",
+        "name": "qwen3-max-2026-01-23", 
+        "description": "qwen3-max model with thinking enabled from Coding Plan (Global/Intl)",
+        "baseUrl": "https://coding-intl.dashscope.aliyuncs.com/v1",
+        "envKey": "BAILIAN_CODING_PLAN_API_KEY",
+        "generationConfig": {
+          "extra_body": {
+            "enable_thinking": true
+          }
+        }
+      },
+      {
+        "id": "qwen3-coder-next",
+        "name": "qwen3-coder-next",
+        "description": "qwen3-coder-next model from Coding Plan (Global/Intl)", 
+        "baseUrl": "https://coding-intl.dashscope.aliyuncs.com/v1",
+        "envKey": "BAILIAN_CODING_PLAN_API_KEY"
+      },
+      {
+        "id": "kimi-k2.5",
+        "name": "kimi-k2.5",
+        "description": "kimi-k2.5 model with thinking enabled from Coding Plan (Global/Intl)",
+        "baseUrl": "https://coding-intl.dashscope.aliyuncs.com/v1", 
+        "envKey": "BAILIAN_CODING_PLAN_API_KEY",
+        "generationConfig": {
+          "extra_body": {
+            "enable_thinking": true
+          }
+        }
+      },
+      {
+        "id": "glm-4.7",
+        "name": "glm-4.7",
+        "description": "glm-4.7 model with thinking enabled from Coding Plan (Global/Intl)",
+        "baseUrl": "https://coding-intl.dashscope.aliyuncs.com/v1",
+        "envKey": "BAILIAN_CODING_PLAN_API_KEY", 
+        "generationConfig": {
+          "extra_body": {
+            "enable_thinking": true
+          }
+        }
+      }
+    ]
+  },
+  "security": {
+    "auth": {
+      "selectedType": "openai"
+    }
+  },
+  "codingPlan": {
+    "region": "global",
+    "version": "fca38c806f59b37de7beecd02b743b47d3d5a57c7c62ce38034bb09e725f221b"
+  },
+  "model": {
+    "name": "qwen3-max-2026-01-23"
+  },
+  "$version": 3
+}
